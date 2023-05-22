@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Link Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td, th {
+      border: 1px solid black;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <label for="startRange">Start Range:</label>
+    <input type="text" id="startRange" value="1">
+    <label for="endRange">End Range:</label>
+    <input type="text" id="endRange" value="1">
+    <br><br>
+    <button type="button" onclick="displayTable()">Generate Table</button>
+  </form>
+
+  <div id="tableContainer"></div>
+
+  <script>
+    let data = ["syllabus.html", "p1.html", "p2.html", "style.html", "email.html", "system.html", "process.html"];
+
+    function displayTable() {
+      let startRange = parseInt(document.getElementById("startRange").value);
+      let endRange = parseInt(document.getElementById("endRange").value);
+
+      let tableContainer = document.getElementById("tableContainer");
+      tableContainer.innerHTML = "";
+
+      if (isNaN(startRange) || isNaN(endRange) || startRange > endRange || startRange < 1 || endRange > data.length) {
+        tableContainer.innerHTML = "Invalid range, valid range: 1-" + data.length;
+      } else {
+        let table = document.createElement("table");
+
+        let validRangeMessage = document.createElement("div");
+        validRangeMessage.textContent = "Valid Range: 1-" + data.length;
+        tableContainer.appendChild(validRangeMessage);
+
+        for (let i = startRange - 1; i < endRange; i++) {
+          let row = document.createElement("tr");
+          let cell = document.createElement("td");
+          let link = document.createElement("a");
+          link.href = data[i];
+          link.textContent = data[i];
+          cell.appendChild(link);
+          row.appendChild(cell);
+          table.appendChild(row);
+        }
+
+        tableContainer.appendChild(table);
+      }
+    }
+  </script>
+</body>
+</html>
+
